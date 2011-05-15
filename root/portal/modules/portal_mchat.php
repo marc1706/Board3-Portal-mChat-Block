@@ -60,19 +60,16 @@ class portal_mchat_module
 
 	public function get_template_center($module_id)
 	{
-		global $config, $template, $phpbb_root_path, $phpEx;
+		global $config, $template, $phpbb_root_path, $phpEx, $auth, $user, $cache, $db;
 
-		if($load_center)
+		if(!defined('MCHAT_INCLUDE'))
 		{
-			if(!defined('MCHAT_INCLUDE'))
-			{
-				define('MCHAT_INCLUDE', true);
-			}
-			if(!function_exists('mchat_cache') && !empty($config['mchat_enable']) && $auth->acl_get('u_mchat_view'))
-			{
-				$mchat_include_index = true;
-				include($phpbb_root_path . 'mchat.' . $phpEx);
-			}
+			define('MCHAT_INCLUDE', true);
+		}
+		if(!function_exists('mchat_cache') && !empty($config['mchat_enable']) && $auth->acl_get('u_mchat_view'))
+		{
+			$mchat_include_index = true;
+			include($phpbb_root_path . 'mchat.' . $phpEx);
 		}
 
 		return 'mchat_center.html';
